@@ -1,31 +1,26 @@
-App.Router = Ember.Router.extend
-  enableLogging: true
-  root: Ember.Route.extend
-    goHome: Ember.Route.transitionTo('collections.index')
+App.Router.map (match) ->
+  match('/').to('index')
+  match('/collections').to 'allCollections', (match) ->
+    match('/').to 'collections'
+    match('/:collection_id').to 'collection'
+    match('/new').to 'newCollection'
 
-    collections: Ember.Route.extend
-      route: '/'
-      connectOutlets: (router, context) ->
+App.IndexRoute = Ember.Route.extend
+  redirect: ->
+    @transitionTo 'collections'
 
-      index: Ember.Route.extend
-        route: '/'
-        show: Ember.Route.transitionTo('collections.show')
-        new: Ember.Route.transitionTo('collections.new')
-        connectOutlets: (router, context) ->
-          router.get('applicationController').connectOutlet('collections', App.Collection.find())
+App.CollectionsRoute = Ember.Route.extend
+  model: ->
+    App.Collection.find()
 
-      show: Ember.Route.extend
-        route: '/collection/:id'
-        connectOutlets: (router, collection) ->
-          router.get('applicationController')
-            .connectOutlet('collection', App.Collection.find(collection.get('id')))
-        serialize: (router, context) ->
-          id: context.get('id')
-        deserialize: (router, params) ->
-          App.Collection.find(params.id)
+App.CollectionRoute = Ember.Route.extend
+  model: (params) ->
+    App.Collection.find(params.collection_id)
 
-      new: Ember.Route.extend
-        route: '/collections/new'
-        connectOutlets: (router, collection) ->
-          router.get('applicationController')
-            .connectOutlet 'editCollection', Ember.Object.create()
+App.NewCollectionRoute = Ember.Route.extend
+  model: (params) ->
+    Ember.Object.create()
+
+
+
+    # goHome: Ember.Route.transitionTo('collections.index')

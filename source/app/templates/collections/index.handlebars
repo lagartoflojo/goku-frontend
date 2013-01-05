@@ -3,19 +3,20 @@
   <!-- Title Area -->
   <li class="name">
     <h1>
-      <a {{action goHome}}>
+      {{#linkTo index}}
         <img src="images/logo.png" height="40" width="40">
         Goku Collector
-      </a>
+      {{/linkTo}}
     </h1>
   </li>
 </ul>
+
 <section>
   <!-- Right Nav Section -->
   <ul class="right">
     <li class="divider"></li>
     <li class="add">
-      <a {{action new}}>+</a>
+      {{#linkTo newCollection}}+{{/linkTo}}
     </li>
   </ul>
 </section>
@@ -25,7 +26,7 @@
   <div class="twelve columns">
     <ul>
       {{#each collection in content}}
-        <li><a {{action show collection}}>{{collection.name}}</a></li>
+        <li>{{#linkTo "collection" collection}}{{collection.name}}{{/linkTo}}</li>
       {{/each}}
     </ul>
   </div>

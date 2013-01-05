@@ -9,11 +9,10 @@ jQuery.ajaxSetup
   headers:
     "X-Requested-With": "XMLHttpRequest"
 
-
 window.App = Ember.Application.create()
 
 App.Store = DS.Store.extend
-  revision: 10
+  revision: 11
   adapter: DS.RESTAdapter.create
     url: 'http://192.168.1.120:3000'
 
@@ -28,14 +27,15 @@ App.CollectionView = Ember.View.extend
   mouseEnter: ->
     console.log 'entered!'
 
-App.EditCollectionController = Ember.ObjectController.extend
+App.NewCollectionController = Ember.ObjectController.extend
   saveCollection: ->
-    App.Collection.createRecord
+    collection = App.Collection.createRecord
       name:        @get('name')
       description: @get('description')
     @get('store').commit()
+    @get('target').transitionTo 'collection', collection
 
-App.EditCollectionView = Ember.View.extend
+App.NewCollectionView = Ember.View.extend
   templateName: 'collections/edit'
 
   didInsertElement: ->
