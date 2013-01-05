@@ -1,0 +1,5 @@
+{{view Ember.TextField valueBinding="name" placeholder="What are you collecting?"}}
+{{view Ember.TextArea valueBinding="description" placeholder="Anything special about it?"}}
+<button type="submit" class="button" {{action saveCollection target="controller"}}>
+  {{#if id}}Update{{else}}Create{{/if}}
+</button>
