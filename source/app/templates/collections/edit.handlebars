@@ -3,17 +3,24 @@
   <!-- Title Area -->
   <li class="name">
     <h1>
-      {{#linkTo index}}
-        <img src="images/logo.png" height="40" width="40">
-          {{#if id}}Edit {{name}}{{else}}New Collection{{/if}}
-      {{/linkTo}}
+      {{#if id}}
+        {{#linkTo collection content}}
+          <img src="images/logo.png" height="40" width="40">
+          Edit "{{name}}"
+        {{/linkTo}}
+      {{else}}
+        {{#linkTo index}}
+          <img src="images/logo.png" height="40" width="40">
+          New Collection
+        {{/linkTo}}
+      {{/if}}
     </h1>
   </li>
 </ul>
 </nav>
 
-{{view Ember.TextField valueBinding="name" placeholder="What are you collecting?"}}
-{{view Ember.TextArea valueBinding="description" placeholder="Anything special about it?"}}
-<button type="submit" class="button" {{action saveCollection target="controller"}}>
+{{view Ember.TextField valueBinding="placeholder.name" placeholder="What are you collecting?"}}
+{{view Ember.TextArea valueBinding="placeholder.description" placeholder="Anything special about it?"}}
+<button type="submit" class="button" {{action save target="controller"}}>
   {{#if id}}Update{{else}}Create Collection{{/if}}
 </button>

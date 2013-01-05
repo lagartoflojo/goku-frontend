@@ -15,7 +15,13 @@
   <ul class="right">
     <li class="divider"></li>
     <li class="add">
-      <a href="#">+</a>
+      {{#linkTo editCollection content}}
+        <i class="icon-pencil"></i>
+      {{/linkTo}}
+    </li>
+    <li class="divider"></li>
+    <li class="add">
+      <a href="#"><i class="icon-plus"></i></a>
     </li>
   </ul>
 </section>
